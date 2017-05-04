@@ -1,11 +1,13 @@
 define([
+	"./compact-pattern-re",
 	"./format/grouping-separator",
 	"./format/integer-fraction-digits",
 	"./format/significant-digits",
 	"./pattern-re",
 	"../util/remove-literal-quotes"
-], function( numberFormatGroupingSeparator, numberFormatIntegerFractionDigits,
-	numberFormatSignificantDigits, numberPatternRe, removeLiteralQuotes ) {
+], function( compactNumberPatternRe, numberFormatGroupingSeparator,
+  numberFormatIntegerFractionDigits, numberFormatSignificantDigits, numberPatternRe,
+  removeLiteralQuotes ) {
 
 /**
  * format( number, properties )
@@ -84,7 +86,7 @@ return function( number, properties, pluralGenerator ) {
 				minimumFractionDigits, maximumFractionDigits, round, roundIncrement ) );
 			pluralForm = pluralGenerator ? pluralGenerator( rounded ) : "other";
 			compactPattern = compactMap[ "1" + zeroes + "-count-" + pluralForm ] || compactPattern;
-			compactProperties = compactPattern.match( numberPatternRe );
+			compactProperties = compactPattern.match( compactNumberPatternRe );
 
 			// update prefix/suffix with compact prefix/suffix
 			prefix += compactProperties[ 1 ];
